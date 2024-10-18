@@ -1,0 +1,32 @@
+import requests
+
+# Replace 'your_openweather_api_key' with your actual OpenWeather API key
+API_KEY = '00be4c0d72071cc6bad9414f0976f0db'
+BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+
+def get_weather(city):
+    # Create request URL
+    url = f'http://api.openweathermap.org/data/2.5/weather?q=irinjalakuda&appid=00be4c0d72071cc6bad9414f0976f0db&units=metric'
+    
+    # Make the GET request
+    response = requests.get(url)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        main = data['main']
+        weather_desc = data['weather'][0]['description']
+        temp = main['temp']
+        humidity = main['humidity']
+        
+        # Print weather details
+        print(f'Weather in {city}:')
+        print(f'Description: {weather_desc}')
+        print(f'Temperature: {temp}°C')
+        print(f'Humidity: {humidity}%')
+    else:
+        print('City not found or API request failed.')
+
+if __name__ == '__main__':
+    city_name = input('Enter the city name: ')
+    get_weather(city_name)
